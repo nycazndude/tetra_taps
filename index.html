@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+	<head><title></title>
+		<script type="text/javascript" src="angular.min.js"></script>
+		<script type="text/javascript" src="app.js"></script>
+		<link href='http://fonts.googleapis.com/css?family=Righteous' rel='stylesheet' type='text/css'>
+		<link rel="stylesheet" href="style.css">
+	</head>
+
+	
+	<body ng-app="tap">
+		<div class="wrapper" ng-controller="controller as ctrl">
+			<div class="title">
+				<div class="green_text">T</div>
+				<div class="yellow_text">e</div>
+				<div class="red_text">t</div>
+				<div class="green_text">r</div>
+				<div class="blue_text">a&nbsp&nbsp</div> 
+				<div class="yellow_text">T</div>
+				<div class="blue_text">a</div>
+				<div class="pink_text">p</div>
+				<div class="red_text">s</div>
+			</div>
+
+			<!-- colors -->
+			<div class="board">
+				<div class="green square" 
+						 ng-click="ctrl.colorClicked('green')" 
+						 ng-class="{lightgreen:ctrl.green_click}" 
+						 ng-class="{green:!ctrl.green_click}">
+				</div>
+				<div class="red square" 
+						 ng-click="ctrl.colorClicked('red')" 
+						 ng-class="{lightred:ctrl.red_click}" 
+						 ng-class="{red:!ctrl.red_click}">
+				</div>
+				<div class="yellow square" 
+						 ng-click="ctrl.colorClicked('yellow')" 
+						 ng-class="{lightyellow:ctrl.yellow_click}" 
+						 ng-class="{yellow:!ctrl.yellow_click}">
+				</div>
+				<div class="blue square" 
+						 ng-click="ctrl.colorClicked('blue')" 
+						 ng-class="{lightblue:ctrl.blue_click}" 
+						 ng-class="{blue:!ctrl.blue_click}">
+				</div>
+				<div class="button" 
+						 ng-click="ctrl.clickedPlay()"
+						 ng-hide="!ctrl.play">
+						<div class="text">{{ctrl.play_text}}</div>
+				</div>
+				<div class="button" 
+						 ng-model="ctrl.message"
+						 ng-hide="ctrl.play">
+						<div class="text">{{ctrl.message}}</div>
+				</div>
+				
+			</div>
+			<div class="border"></div>
+			
+			<!-- <div class="info"
+					 ng-repeat="choice in ctrl.tetra_choices track by $index">
+				<p>{{choice}}</p>
+			</div> -->
+ 
+			
+			
+		</div>
+
+
+	</body>
+
+</html>
