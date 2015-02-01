@@ -216,11 +216,7 @@ body{background-color: whitesmoke;}
 
 .modes:hover{
 	cursor: pointer;
-	/*background: -webkit-linear-gradient(bottom right, #222, #999); /* For Safari 5.1 to 6.0 */*/
-  /*background: -o-linear-gradient(top left, #222, #999); /* For Opera 11.1 to 12.0 */*/
-  /*background: -moz-linear-gradient(top left, #222, #999); /* For Firefox 3.6 to 15 */*/
-  /*background: linear-gradient(to top left, #222, #999); /* Standard syntax */*/
-  background: -webkit-linear-gradient(bottom right, red, orange); /* For Safari 5.1 to 6.0 */
+	background: -webkit-linear-gradient(bottom right, red, orange); /* For Safari 5.1 to 6.0 */
   background: -o-linear-gradient(top left, red, orange); /* For Opera 11.1 to 12.0 */
   background: -moz-linear-gradient(top left, red, orange); /* For Firefox 3.6 to 15 */
   background: linear-gradient(to top left, red, orange); /* Standard syntax */
@@ -238,10 +234,10 @@ body{background-color: whitesmoke;}
 }
 
 .score{
-	width: 350px;
+	width: 400px;
 	height: auto;
 	position: relative;
-	right: -700px;
+	right: -650px;
 	top: -625px;
 	font-size: 30px;
 }
