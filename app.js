@@ -14,11 +14,10 @@ angular.module("tap", [])
 	self.yellow_click = false;
 	self.play = true;
 	self.player_turn = false;
-	self.play_text = "Play";
+	self.play_text = "Click To Play";
 	self.message = ""; 
 
 	self.initialize = function(){
-		console.log("initialize");
 		var speed = 1000;
 		var turn = 1;
 		var wait = speed * (turn+2.5); 		
@@ -28,7 +27,7 @@ angular.module("tap", [])
 		self.yellow_click = false;
 		self.play = true;
 		self.player_turn = false;
-		self.play_text = "Play";
+		self.play_text = "Click To Play";
 		self.message = ""; 
 	}
 
@@ -37,7 +36,7 @@ angular.module("tap", [])
 		else if(color == "red"){self.red_click = true;}
 		else if(color == "blue"){self.blue_click = true;}
 		else if(color == "yellow"){self.yellow_click = true;}
-		else{console.log("invalid color");}
+		else{}
 		
 		$timeout(function(){
 			if(color == "green"){
@@ -67,8 +66,10 @@ angular.module("tap", [])
 	self.tetrasTurn = function(turn, speed){
 		self.player_turn = false;
 		timer = speed/2;
-		wait = speed * (turn+2); 
+		wait = speed * (turn+2); // waits for tetra to finish clicks
 		self.message = "Tetra's Turn";
+
+		//timeout function gives player some time before tetra starts
 		$timeout(function(){
 			var i = 0;
 			var stop = $interval(function(){
@@ -97,10 +98,12 @@ angular.module("tap", [])
 	}	
 
 	self.detectClicks = function(color){
+		//compares player choice and tetra's
 		if(color == self.tetra_choices[count]){
 			console.log(count, self.tetra_choices[count]);
-			count++;	
+			count++; //iterates through tetra's choices	
 			self.message = "Correct!";
+			//check to see if player clears round
 			if(count >= self.tetra_choices.length){
 				count = 0;
 				turn++;
@@ -111,17 +114,18 @@ angular.module("tap", [])
 				}, 1000);
 			}
 			$timeout(function(){
-				self.message = "Your Turn";
+				self.message = "Your Move";
 			}, timer);
 		}else{
-			self.gameOver();
+			self.player_turn = false;
+			self.gameOver(); //gameover when player chooses incorrectly
 		}
 	}
 	
 	self.playersTurn = function(){
 		$timeout(function(){
 			self.player_turn = true;
-			self.message = "Your Turn";
+			self.message = "Your Move";
 			console.log("player turn: "+self.player_turn);
 			timer = 500;
 		}, wait);
@@ -138,7 +142,7 @@ angular.module("tap", [])
 		else if(random_text == 1 && turn >= 5 && turn < 10){self.message = "Keep It Up";}
 		else if(random_text == 2 && turn >= 5 && turn < 10){self.message = "Bummer";}
 		else if(random_text == 3 && turn >= 5 && turn < 10){self.message = "Game Over";}
-		else if(turn > 10){self.message="That Was Amazing"}
+		else if(turn >= 10){self.message="You Were Amazing"}
 		else{self.message = "Game Over";}
 
 		$timeout(function(){

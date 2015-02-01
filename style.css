@@ -125,10 +125,10 @@ body{background-color: whitesmoke;}
 	border-radius: 50%;
 	top: -412.5px;
 	left: 267.5px;
-	background: -webkit-linear-gradient(bottom right, #000,#000, silver, #000); /* For Safari 5.1 to 6.0 */
-  background: -o-linear-gradient(top left, #000,#000, silver, #000); /* For Opera 11.1 to 12.0 */
-  background: -moz-linear-gradient(top left, #000,#000, silver, #000); /* For Firefox 3.6 to 15 */
-  background: linear-gradient(to top left, #000,#000, silver, #000); /* Standard syntax */
+	background: -webkit-linear-gradient(bottom right, #000,#000, grey, #000); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(top left, #000,#000, grey, #000); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(top left, #000,#000, grey, #000); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(to top left, #000,#000, grey, #000); /* Standard syntax */
 }
 
 .button{
@@ -150,7 +150,7 @@ body{background-color: whitesmoke;}
   background: linear-gradient(to top left, #000, #555); /* Standard syntax */
 }
 
-.button:hover{  
+.hoverable:hover{  
 	background: -webkit-linear-gradient(bottom right, #000, #666); /* For Safari 5.1 to 6.0 */
   background: -o-linear-gradient(top left, #000, #666); /* For Opera 11.1 to 12.0 */
   background: -moz-linear-gradient(top left, #000, #666); /* For Firefox 3.6 to 15 */

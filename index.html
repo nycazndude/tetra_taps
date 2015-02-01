@@ -25,31 +25,35 @@
 			<!-- colors -->
 			<div class="board">
 				<div class="green square" 
-						 ng-click="ctrl.colorClicked('green')" 
+						 ng-disabled="!ctrl.player_turn"
+						 ng-click="!ctrl.player_turn || ctrl.colorClicked('green')" 
 						 ng-class="{lightgreen:ctrl.green_click}" 
 						 ng-class="{green:!ctrl.green_click}">
 				</div>
 				<div class="red square" 
-						 ng-click="ctrl.colorClicked('red')" 
+						 ng-diabled="!ctrl.player_turn"
+						 ng-click="!ctrl.player_turn || ctrl.colorClicked('red')" 
 						 ng-class="{lightred:ctrl.red_click}" 
 						 ng-class="{red:!ctrl.red_click}">
 				</div>
 				<div class="yellow square" 
-						 ng-click="ctrl.colorClicked('yellow')" 
+						 ng-disabled="!ctrl.player_turn"
+						 ng-click="!ctrl.player_turn || ctrl.colorClicked('yellow')" 
 						 ng-class="{lightyellow:ctrl.yellow_click}" 
 						 ng-class="{yellow:!ctrl.yellow_click}">
 				</div>
 				<div class="blue square" 
-						 ng-click="ctrl.colorClicked('blue')" 
+						 ng-disabled="!ctrl.player_turn"
+						 ng-click="!ctrl.player_turn || ctrl.colorClicked('blue')" 
 						 ng-class="{lightblue:ctrl.blue_click}" 
 						 ng-class="{blue:!ctrl.blue_click}">
 				</div>
-				<div class="button" 
+				<div class="button hoverable" 
 						 ng-click="ctrl.clickedPlay()"
 						 ng-hide="!ctrl.play">
 						<div class="text">{{ctrl.play_text}}</div>
 				</div>
-				<div class="button" 
+				<div class="button"  
 						 ng-model="ctrl.message"
 						 ng-hide="ctrl.play">
 						<div class="text">{{ctrl.message}}</div>
