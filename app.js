@@ -1,12 +1,13 @@
 angular.module("tap", [])
 
-.controller("controller", function($timeout, $interval, $scope){
+.controller("controller", function($timeout, $interval){
 	var self = this;
 	var timer = 500;
 	var speed = 1000;
 	var turn = 1;
 	var wait = speed * (turn+2.5); 
 	var count = 0;
+	self.score = 0;
 	self.tetra_choices = [];
 	self.red_click = false;
 	self.blue_click = false;
@@ -16,11 +17,14 @@ angular.module("tap", [])
 	self.player_turn = false;
 	self.play_text = "Click To Play";
 	self.message = ""; 
+	self.classic_mode = false;
+	self.tetra_mode = true;
 
 	self.initialize = function(){
 		var speed = 1000;
 		var turn = 1;
-		var wait = speed * (turn+2.5); 		
+		var wait = speed * (turn+2.5); 
+		self.score = 0;		
 		self.red_click = false;
 		self.blue_click = false;
 		self.green_click = false;
@@ -29,6 +33,15 @@ angular.module("tap", [])
 		self.player_turn = false;
 		self.play_text = "Click To Play";
 		self.message = ""; 
+	}
+
+	self.selectClassic = function(){
+		self.classic_mode = true;
+		self.tetra_mode = false;
+	}
+	self.selectTetra = function(){
+		self.tetra_mode = true;
+		self.classic_mode = false;
 	}
 
 	self.colorClicked = function(color){
@@ -58,59 +71,77 @@ angular.module("tap", [])
 	self.clickedPlay = function(){ 
 		self.play = false;
 		$timeout(function() { 
-			self.tetrasTurn(turn, speed);
+			self.tetrasTurn();
 		}, timer/2);
 		
 	}
 
-	self.tetrasTurn = function(turn, speed){
+	self.tetrasTurn = function(){
 		self.player_turn = false;
 		timer = speed/2;
 		wait = speed * (turn+2); // waits for tetra to finish clicks
 		self.message = "Tetra's Turn";
-
 		//timeout function gives player some time before tetra starts
 		$timeout(function(){
-			var i = 0;
-			var stop = $interval(function(){
-				if(i >= turn-1){
-					$interval.cancel(stop);
-				}
-				var tetra_pick = Math.floor(Math.random()*4);
-				if(tetra_pick == 0){
-					self.colorClicked('green');
-					self.tetra_choices.push('green');
-				}else if(tetra_pick == 1){
-					self.colorClicked('red');
-					self.tetra_choices.push('red');
-				}else if(tetra_pick == 2){
-					self.colorClicked('blue');
-					self.tetra_choices.push('blue');	
-				}else if(tetra_pick == 3){
-					self.colorClicked('yellow');
-					self.tetra_choices.push('yellow');
-				}else{self.message="Error"}
-				i++;
-			}, speed); 
-		}, timer);
-
+			if(self.classic_mode == true){self.classicMode();}
+			else{self.tetraMode();}
+		}, timer); 
 		self.playersTurn();
 	}	
+
+	self.classicMode = function(){
+		var i = 0;
+		var stop = $interval(function(){
+			if(i >= turn-1){$interval.cancel(stop);}
+			if(self.tetra_choices.length == 0){self.tetraPicks();}
+			else if(i < self.tetra_choices.length){
+				self.colorClicked(self.tetra_choices[i]);
+				i++;
+			}else if(i >= self.tetra_choices.length){
+				self.tetraPicks();
+			}else{}
+		}, speed);		
+	}
+	self.tetraMode = function(){
+		var i = 0;
+		var stop = $interval(function(){
+			if(i >= turn-1){$interval.cancel(stop);}
+			self.tetraPicks();
+			i++;
+		}, speed); 
+	}
+
+	self.tetraPicks = function(){
+		var tetra_pick = Math.floor(Math.random()*4);
+		if(tetra_pick == 0){
+			self.colorClicked('green');
+			self.tetra_choices.push('green');
+		}else if(tetra_pick == 1){
+			self.colorClicked('red');
+			self.tetra_choices.push('red');
+		}else if(tetra_pick == 2){
+			self.colorClicked('blue');
+			self.tetra_choices.push('blue');	
+		}else if(tetra_pick == 3){
+			self.colorClicked('yellow');
+			self.tetra_choices.push('yellow');
+		}else{self.message="Tetra Has An Error";}
+	}
 
 	self.detectClicks = function(color){
 		//compares player choice and tetra's
 		if(color == self.tetra_choices[count]){
-			console.log(count, self.tetra_choices[count]);
 			count++; //iterates through tetra's choices	
-			self.message = "Correct!";
+			self.winMessage();
+			self.scoreCount();
 			//check to see if player clears round
 			if(count >= self.tetra_choices.length){
 				count = 0;
 				turn++;
-				self.tetra_choices = [];
+				if(self.tetra_mode == true){self.tetra_choices = [];}
 				$timeout(function(){
 					speed -= 50;
-					self.tetrasTurn(turn, speed);	
+					self.tetrasTurn();	
 				}, 1000);
 			}
 			$timeout(function(){
@@ -132,19 +163,57 @@ angular.module("tap", [])
 		
 	}
 
-	self.gameOver = function(){
+	self.winMessage = function(){
 		var random_text = Math.floor(Math.random()*4);
-		if(random_text == 0 && turn < 5){self.message = "Oops";}
-		else if(random_text == 1 && turn < 5){self.message = "Wrong One";}
-		else if(random_text == 2 && turn < 5){self.message = "Sorry";}
-		else if(random_text == 3 && turn < 5){self.message = "Nope";} 
-		else if(random_text == 0 && turn >= 5 && turn < 10){self.message = "Not Bad";}
-		else if(random_text == 1 && turn >= 5 && turn < 10){self.message = "Keep It Up";}
+		if(random_text == 0 && count == 1){self.message = "Correct!"}
+		else if(random_text == 1 && count == 1){self.message = "Easy"}
+		else if(random_text == 2 && count == 1){self.message = "Yay!"}
+		else if(random_text == 3 && count == 1){self.message = "No Sweat"}
+		else if(random_text == 0 && count < 5 && count > 1){self.message = "Right On!";}
+		else if(random_text == 1 && count < 5 && count > 1){self.message = "Correct!";}
+		else if(random_text == 2 && count < 5 && count > 1){self.message = "Nice!";}
+		else if(random_text == 3 && count < 5 && count > 1){self.message = "Good!";} 
+		else if(random_text == 0 && count >= 5 && count < 10){self.message = "Keep It Up";}
+		else if(random_text == 1 && count >= 5 && count < 10){self.message = "Yes!";}
+		else if(random_text == 2 && count >= 5 && count < 10){self.message = "Great!";}
+		else if(random_text == 3 && count >= 5 && count < 10){self.message = "Cool!";}
+		else if(random_text == 0 && count >= 10){self.message="Unbelievable!"}
+		else if(random_text == 1 && count >= 10){self.message="Amazing!"}
+		else if(random_text == 2 && count >= 10){self.message="Are You Cheating?"}
+		else if(random_text == 3 && count >= 10){self.message="Impossible!"}
+		else if(count >= 15){self.message="You Are God!"}
+		else{self.message = "Correct!";}
+	}
+	self.loseMessage = function(){
+		var random_text = Math.floor(Math.random()*4);
+		if(random_text == 0 && turn == 1){self.message = "Sigh.."}
+		else if(random_text == 1 && turn == 1){self.message = "T.T"}
+		else if(random_text == 2 && turn == 1){self.message = "No Good"}
+		else if(random_text == 3 && turn == 1){self.message = ":("}
+		else if(random_text == 0 && turn < 5 && turn > 1){self.message = "Oops";}
+		else if(random_text == 1 && turn < 5 && turn > 1){self.message = "Wrong One";}
+		else if(random_text == 2 && turn < 5 && turn > 1){self.message = "Sorry";}
+		else if(random_text == 3 && turn < 5 && turn > 1){self.message = "Nope";} 
+		else if(random_text == 0 && turn >= 5 && turn < 10){self.message = "Maybe Next Time";}
+		else if(random_text == 1 && turn >= 5 && turn < 10){self.message = "Oh No...";}
 		else if(random_text == 2 && turn >= 5 && turn < 10){self.message = "Bummer";}
-		else if(random_text == 3 && turn >= 5 && turn < 10){self.message = "Game Over";}
+		else if(random_text == 3 && turn >= 5 && turn < 10){self.message = "^.^";}
 		else if(turn >= 10){self.message="You Were Amazing"}
 		else{self.message = "Game Over";}
+	}
 
+	self.scoreCount = function(){
+		if(turn <= 4){self.score++;}
+		else if(turn >= 5 && turn < 8){self.score+=10;}
+		else if(turn >= 8 && turn < 10){self.score+=50;}
+		else if(turn >=10 && turn < 15){self.score+=100;}
+		else if(turn >=15 && turn < 20){self.score+=500;}
+		else if(turn >=20){self.score+=1000;}
+		else{self.score+=7;}
+	}
+
+	self.gameOver = function(){
+		self.loseMessage();
 		$timeout(function(){
 			self.message = "Try Again"
 		}, timer*3);

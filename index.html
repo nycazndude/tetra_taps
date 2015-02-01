@@ -11,15 +11,8 @@
 	<body ng-app="tap">
 		<div class="wrapper" ng-controller="controller as ctrl">
 			<div class="title">
-				<div class="green_text">T</div>
-				<div class="yellow_text">e</div>
-				<div class="red_text">t</div>
-				<div class="green_text">r</div>
-				<div class="blue_text">a&nbsp&nbsp</div> 
-				<div class="yellow_text">T</div>
-				<div class="blue_text">a</div>
-				<div class="pink_text">p</div>
-				<div class="red_text">s</div>
+				<div class="green_text">T</div><div class="yellow_text">e</div><div class="red_text">t</div><div class="green_text">r</div><div class="blue_text">a&nbsp</div> 
+				<div class="yellow_text">T</div><div class="blue_text">a</div><div class="pink_text">p</div><div class="red_text">s</div>
 			</div>
 
 			<!-- colors -->
@@ -58,16 +51,31 @@
 						 ng-hide="ctrl.play">
 						<div class="text">{{ctrl.message}}</div>
 				</div>
-				
 			</div>
-			<div class="border"></div>
+			<div class="rim"></div>
+
+			<div class="mode_panel">Game Modes
+				<div class="modes"
+						 ng-class="{highlighted:ctrl.classic_mode}" 
+						 ng-disabled="!ctrl.play"
+						 ng-click="!ctrl.play || ctrl.selectClassic()">
+					Classic
+				</div>
+				<div class="modes"
+						 ng-class="{highlighted:ctrl.tetra_mode}"
+						 ng-disabled="!ctrl.play"
+						 ng-click="!ctrl.play || ctrl.selectTetra()">
+					Tetra
+				</div>
+			</div>
+			<div class="score" ng-model="ctrl.score">Score: {{ctrl.score}}</div>
 			
 			<!-- <div class="info"
 					 ng-repeat="choice in ctrl.tetra_choices track by $index">
 				<p>{{choice}}</p>
 			</div> -->
  
-			
+			<div class="footer">&copy; 2015 Jason Yim</div>
 			
 		</div>
 
