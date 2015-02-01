@@ -69,13 +69,16 @@
 				</div>
 			</div>
 			<div class="score" ng-model="ctrl.score">Score: {{ctrl.score}}</div>
+			<div class="footer">&copy; 2015 Jason Yim</div>
+			<div class="modes reset"
+						 ng-click="ctrl.reset()">
+					Reset
+			</div>
 			
-			<!-- <div class="info"
+			<div class="info"
 					 ng-repeat="choice in ctrl.tetra_choices track by $index">
 				<p>{{choice}}</p>
-			</div> -->
- 
-			<div class="footer">&copy; 2015 Jason Yim</div>
+			</div>
 			
 		</div>
 

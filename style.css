@@ -2,7 +2,7 @@ body{background-color: whitesmoke;}
 
 .wrapper{
 	width: 960px;
-	height: auto;
+	height: 600px;
 	margin: 0 auto;
 	position: relative;
 	z-index: 0;
@@ -207,7 +207,7 @@ body{background-color: whitesmoke;}
 	width: 150px;
 	height: 60px;
 	border-radius: 5%;
-	border: black solid 1px;
+	border: whitesmoke solid 1px;
 	background: -webkit-linear-gradient(bottom right, #000, #555); /* For Safari 5.1 to 6.0 */
   background: -o-linear-gradient(top left, #000, #555); /* For Opera 11.1 to 12.0 */
   background: -moz-linear-gradient(top left, #000, #555); /* For Firefox 3.6 to 15 */
@@ -216,20 +216,25 @@ body{background-color: whitesmoke;}
 
 .modes:hover{
 	cursor: pointer;
-	background: -webkit-linear-gradient(bottom right, #222, #999); /* For Safari 5.1 to 6.0 */
-  background: -o-linear-gradient(top left, #222, #999); /* For Opera 11.1 to 12.0 */
-  background: -moz-linear-gradient(top left, #222, #999); /* For Firefox 3.6 to 15 */
-  background: linear-gradient(to top left, #222, #999); /* Standard syntax */
+	/*background: -webkit-linear-gradient(bottom right, #222, #999); /* For Safari 5.1 to 6.0 */*/
+  /*background: -o-linear-gradient(top left, #222, #999); /* For Opera 11.1 to 12.0 */*/
+  /*background: -moz-linear-gradient(top left, #222, #999); /* For Firefox 3.6 to 15 */*/
+  /*background: linear-gradient(to top left, #222, #999); /* Standard syntax */*/
+  background: -webkit-linear-gradient(bottom right, red, orange); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(top left, red, orange); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(top left, red, orange); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(to top left, red, orange); /* Standard syntax */
 }
 .highlighted{
-	color:gold;
+	color:#333;
 	font-size: 40px;
 	padding-top: 10px;
 	padding-bottom: 5px;
-	background: -webkit-linear-gradient(bottom right, #222, #999); /* For Safari 5.1 to 6.0 */
-  background: -o-linear-gradient(top left, #222, #999); /* For Opera 11.1 to 12.0 */
-  background: -moz-linear-gradient(top left, #222, #999); /* For Firefox 3.6 to 15 */
-  background: linear-gradient(to top left, #222, #999); /* Standard syntax */
+	border: grey solid 1px;
+	background: -webkit-linear-gradient(bottom right, red, orange); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(top left, red, orange); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(top left, red, orange); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(to top left, red, orange); /* Standard syntax */
 }
 
 .score{
@@ -248,6 +253,36 @@ body{background-color: whitesmoke;}
 	font-size: 12px;
 	font-family: Garamond;
 	font-weight: normal;
+}
+
+.reset{
+	position: relative;
+	top: -675px;
+	left: 140px;
+	color:whitesmoke;
+	text-align: center;
+	padding-top: 7.5px;
+	padding-bottom: 7.5px; 
+	font-size: 20px;
+	width: 100px;
+	height: 30px;
+	border-radius: 50%;
+	border: whitesmoke solid 1px;
+	background: -webkit-linear-gradient(bottom right, #222, #999); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(top left, #222, #999); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(top left, #222, #999); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(to top left, #222, #999); /* Standard syntax */
+}
+
+.reset:hover{
+	font-size: 22px;
+	padding-top: 7.5px; 
+	padding-bottom: 7.5px;
+	border: darkred solid 1px;
+	background: -webkit-linear-gradient(bottom right, darkred, red); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(top left, darkred, red); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(top left, darkred, red); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(to top left, darkred, red); /* Standard syntax */
 }
 
 

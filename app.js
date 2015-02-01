@@ -4,9 +4,9 @@ angular.module("tap", [])
 	var self = this;
 	var timer = 500;
 	var speed = 1000;
-	var turn = 1;
-	var wait = speed * (turn+2.5); 
+	var turn = 1; 
 	var count = 0;
+	var wait = speed * (turn+2);
 	self.score = 0;
 	self.tetra_choices = [];
 	self.red_click = false;
@@ -20,11 +20,14 @@ angular.module("tap", [])
 	self.classic_mode = false;
 	self.tetra_mode = true;
 
-	self.initialize = function(){
-		var speed = 1000;
-		var turn = 1;
-		var wait = speed * (turn+2.5); 
-		self.score = 0;		
+	self.reset = function(){ 
+		timer = 500;
+		speed = 1000;
+		turn = 1; 
+		count = 0;
+		wait = speed * (turn+2);
+		self.score = 0;
+		self.tetra_choices = [];
 		self.red_click = false;
 		self.blue_click = false;
 		self.green_click = false;
@@ -32,7 +35,7 @@ angular.module("tap", [])
 		self.play = true;
 		self.player_turn = false;
 		self.play_text = "Click To Play";
-		self.message = ""; 
+		self.message = "";  
 	}
 
 	self.selectClassic = function(){
@@ -165,23 +168,25 @@ angular.module("tap", [])
 
 	self.winMessage = function(){
 		var random_text = Math.floor(Math.random()*4);
-		if(random_text == 0 && count == 1){self.message = "Correct!"}
-		else if(random_text == 1 && count == 1){self.message = "Easy"}
-		else if(random_text == 2 && count == 1){self.message = "Yay!"}
-		else if(random_text == 3 && count == 1){self.message = "No Sweat"}
-		else if(random_text == 0 && count < 5 && count > 1){self.message = "Right On!";}
-		else if(random_text == 1 && count < 5 && count > 1){self.message = "Correct!";}
-		else if(random_text == 2 && count < 5 && count > 1){self.message = "Nice!";}
-		else if(random_text == 3 && count < 5 && count > 1){self.message = "Good!";} 
-		else if(random_text == 0 && count >= 5 && count < 10){self.message = "Keep It Up";}
-		else if(random_text == 1 && count >= 5 && count < 10){self.message = "Yes!";}
-		else if(random_text == 2 && count >= 5 && count < 10){self.message = "Great!";}
-		else if(random_text == 3 && count >= 5 && count < 10){self.message = "Cool!";}
-		else if(random_text == 0 && count >= 10){self.message="Unbelievable!"}
-		else if(random_text == 1 && count >= 10){self.message="Amazing!"}
-		else if(random_text == 2 && count >= 10){self.message="Are You Cheating?"}
-		else if(random_text == 3 && count >= 10){self.message="Impossible!"}
-		else if(count >= 15){self.message="You Are God!"}
+		if(random_text == 0 && count >= 1 && count < 4){self.message = "Correct!"}
+		else if(random_text == 1 && count >= 1 && count < 4){self.message = "Easy!"}
+		else if(random_text == 2 && count >= 1 && count < 4){self.message = "Yep!"}
+		else if(random_text == 3 && count >= 1 && count < 4){self.message = "No Sweat!"}
+		else if(random_text == 0 && count >= 4 && count < 7){self.message = "Right On!";}
+		else if(random_text == 1 && count >= 4 && count < 7){self.message = "Keep Going!";}
+		else if(random_text == 2 && count >= 4 && count < 7){self.message = "Nice!";}
+		else if(random_text == 3 && count >= 4 && count < 7){self.message = "Good!";} 
+		else if(random_text == 0 && count >= 7 && count < 10){self.message = "On Fire!";}
+		else if(random_text == 1 && count >= 7 && count < 10){self.message = "You Got It!";}
+		else if(random_text == 2 && count >= 7 && count < 10){self.message = "Awesome!";}
+		else if(random_text == 3 && count >= 7 && count < 10){self.message = "Cool!";}
+		else if(random_text == 0 && count >= 10 && count < 20){self.message="Unbelievable!"}
+		else if(random_text == 1 && count >= 10 && count < 20){self.message="Amazing!"}
+		else if(random_text == 2 && count >= 10 && count < 20){self.message="Wow!"}
+		else if(random_text == 3 && count >= 10 && count < 20){self.message="You're Good!"}
+		else if(random_text == 2 && count >= 15 && count < 20){self.message="Are You Cheating?"}
+		else if(random_text == 3 && count >= 15 && count < 20){self.message="Impossible!"}
+		else if(count >= 20){self.message="You Are God!"}
 		else{self.message = "Correct!";}
 	}
 	self.loseMessage = function(){
@@ -218,10 +223,7 @@ angular.module("tap", [])
 			self.message = "Try Again"
 		}, timer*3);
 		$timeout(function(){
-			count = 0;
-			turn = 1;
-			self.tetra_choices = [];
-			self.initialize();
+			self.reset();
 		}, timer*6);
 	}
 });
