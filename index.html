@@ -1,13 +1,12 @@
 <!doctype html>
 <html>
-	<head><title></title>
-		<script type="text/javascript" src="angular.min.js"></script>
-		<script type="text/javascript" src="app.js"></script>
+	<head><title>Tetra Taps</title>
+		<script type="text/javascript" src="js/angular.min.js"></script>
+		<script type="text/javascript" src="js/app.js"></script>
 		<link href='http://fonts.googleapis.com/css?family=Righteous' rel='stylesheet' type='text/css'>
-		<link rel="stylesheet" href="style.css">
+		<link rel="stylesheet" href="css/style.css">
+		<link rel="icon" href="images/favicon.ico">
 	</head>
-
-	
 	<body ng-app="tap">
 		<div class="wrapper" ng-controller="controller as ctrl">
 			<div class="title">
@@ -74,8 +73,8 @@
 						 ng-click="ctrl.reset()">
 					Reset
 			</div>
-			
-			<!-- <div class="info"
+			<!-- 
+			<div class="info"
 					 ng-repeat="choice in ctrl.tetra_choices track by $index">
 				<p>{{choice}}</p>
 			</div> -->

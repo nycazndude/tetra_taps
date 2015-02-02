@@ -181,7 +181,8 @@ body{background-color: whitesmoke;}
 	width: 100px;
 	height: auto;  
 	position: relative;
-	top: -800px;
+	top: -1200px;
+	left: 900px;
 }
 
 .color{
