@@ -6,14 +6,14 @@ angular.module("tap", [])
 	var turn = 1; 
 	var count = 0;
 	var wait = speed * (turn+2);
-	var win_text1  = ["Correct!",          "Easy!",       "Yep!",      "No Sweat!"];
-	var win_text2  = ["Right On!",         "Keep It Up!", "Nice!",     "Good!"];
-	var win_text3  = ["On Fire!",          "You Got It!", "Awesome!",  "Cool!"];
-	var win_text4  = ["Oh Yeah!",          "Amazing!",    "Wow!",      "You're Good"];
-	var win_text5  = ["Are You Cheating?", "OWNAGE!",     "Wrecking!", "Holy Sh*t!"];
-	var lose_text1 = ["Sigh..",            "T.T",         "No Good",   ":("];
-	var lose_text2 = ["Oopsies!",          "Wrong One",   "Sorry!",    "Nope"];
-	var lose_text3 = ["Maybe Next Time?",  "Oh No...",    "Bummer!",   "^.^"];	
+	var win_text1  = ["Correct!",          "Easy!",       "Yep!",      "No Sweat!"     ];
+	var win_text2  = ["Right On!",         "Keep It Up!", "Nice!",     "Good!"         ];
+	var win_text3  = ["On Fire!",          "You Got It!", "Awesome!",  "Cool!"         ];
+	var win_text4  = ["Oh Yeah Baby!",     "Amazing!",    "Wow!",      "You're Good"   ];
+	var win_text5  = ["Are You Cheating?", "OWNAGE!",     "Wrecking!", "Terrific!"     ];
+	var lose_text1 = ["Sigh..",            "T.T",         "No Good",   "Not Even Close"];
+	var lose_text2 = ["Oops!",             "Wrong One",   "Sorry!",    "Nope"          ];
+	var lose_text3 = ["Maybe Next Time?",  "Oh No...",    "Bummer!",   "Ay Yaah!"      ];	
 	self.score = 0;
 	self.tetra_choices = [];
 	self.red_click = false;
@@ -22,7 +22,7 @@ angular.module("tap", [])
 	self.yellow_click = false;
 	self.play = true;
 	self.player_turn = false;
-	self.play_text = "Click To Play";
+	self.play_text = "Play";
 	self.message = ""; 
 	self.classic_mode = true;
 	self.tetra_mode = false;
@@ -41,7 +41,7 @@ angular.module("tap", [])
 		self.yellow_click = false;
 		self.play = true;
 		self.player_turn = false;
-		self.play_text = "Click To Play";
+		self.play_text = "Play";
 		self.message = "";  
 	}
 
@@ -173,7 +173,9 @@ angular.module("tap", [])
 	}
 	self.gameOver = function(){
 		self.loseMessage();
-		$timeout(function(){self.message = "Try Again"}, timer*3);
-		$timeout(function(){self.reset();}, timer*6);
+		$timeout(function(){self.colorClicked(self.tetra_choices[count]);}, timer*1.5);
+		$timeout(function(){self.colorClicked(self.tetra_choices[count]);}, timer*3);
+		$timeout(function(){self.message = "Try Again";}, timer*4.5);
+		$timeout(function(){self.reset();}, timer*7.5);
 	}
 });
