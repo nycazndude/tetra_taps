@@ -5,6 +5,7 @@
 		<script type="text/javascript" src="js/app.js"></script>
 		<link href='http://fonts.googleapis.com/css?family=Righteous' rel='stylesheet' type='text/css'>
 		<link rel="stylesheet" href="css/style.css">
+		<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 		<link rel="icon" href="images/favicon.ico">
 	</head>
 	<body ng-app="tap">
@@ -40,13 +41,12 @@
 						 ng-class="{lightblue:ctrl.blue_click}" 
 						 ng-class="{blue:!ctrl.blue_click}">
 				</div>
-				<div class="button hoverable" 
+				<div class="button play_button" 
 						 ng-click="ctrl.clickedPlay()"
 						 ng-hide="!ctrl.play">
-						<div class="text">{{ctrl.play_text}}</div>
+						<div class="text play_text">{{ctrl.play_text}}</div>
 				</div>
 				<div class="button"  
-						 ng-model="ctrl.message"
 						 ng-hide="ctrl.play">
 						<div class="text">{{ctrl.message}}</div>
 				</div>
@@ -67,12 +67,33 @@
 					Tetra
 				</div>
 			</div>
-			<div class="score" ng-model="ctrl.score">Score: {{ctrl.score}}</div>
+			<div class="score" ng-model="ctrl.score" ng-model="ctrl.level">
+				Level: {{ctrl.level}}<br/>Score: {{ctrl.score}}
+			</div>
+			<div class="light">
+					Lights
+					<i class="fa fa-toggle-on fa-2x light_toggle" 
+						 ng-click="ctrl.lightClicked()"
+						 ng-hide="!ctrl.light"></i>
+					<i class="fa fa-toggle-off fa-2x light_toggle" 
+						 ng-click="ctrl.lightClicked()"
+						 ng-hide="ctrl.light"></i>
+			</div>
 			<div class="footer">&copy; 2015 Jason Yim</div>
 			<div class="modes reset"
 						 ng-click="ctrl.reset()">
 					Reset
 			</div>
+
+			<!-- <div class="high_score_panel"
+					 ng-click="ctrl.scoreView()">High Score
+				<div class="score_board"
+					 ng-hide="!ctrl.score_clicked"
+					 ng-repeat="score in ctrl.score_board">
+					 <span class="left">{{score.name}}</span><span class="right">{{score.score}}</span>
+				</div>
+			</div> -->
+			 
 			<!-- 
 			<div class="info"
 					 ng-repeat="choice in ctrl.tetra_choices track by $index">

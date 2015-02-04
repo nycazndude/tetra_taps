@@ -1,4 +1,16 @@
-body{background-color: whitesmoke;}
+*{
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  cursor: default;
+}
+
+body{
+	background-color: #333;
+}
 
 .wrapper{
 	width: 960px;
@@ -8,17 +20,6 @@ body{background-color: whitesmoke;}
 	z-index: 0;
 	font-family: 'Righteous', cursive;
 } 
-.square{
-	width:200px;
-	height:200px;
-	display: inline-block; 
-	position: relative;
-	z-index: 20;
-}
-
-.square:hover{
-	cursor: pointer;
-}
 
 /*-----------------color default-----------------*/
 .green{
@@ -105,6 +106,7 @@ body{background-color: whitesmoke;}
   -webkit-border-radius: 0 0 0 100%;
 }
 
+/*---------------------game board-------------------------*/
 .board{
 	width: 400px;
 	height: 400px;
@@ -130,6 +132,14 @@ body{background-color: whitesmoke;}
   background: -moz-linear-gradient(top left, #000,#000, grey, #000); /* For Firefox 3.6 to 15 */
   background: linear-gradient(to top left, #000,#000, grey, #000); /* Standard syntax */
 }
+.square{
+	width:200px;
+	height:200px;
+	display: inline-block; 
+	position: relative;
+	z-index: 20;
+}
+.square:hover{cursor: pointer;}
 
 .button{
 	width: 100px;
@@ -150,19 +160,17 @@ body{background-color: whitesmoke;}
   background: linear-gradient(to top left, #000, #555); /* Standard syntax */
 }
 
-.hoverable:hover{  
+.play_button:hover{  
 	background: -webkit-linear-gradient(bottom right, #000, #666); /* For Safari 5.1 to 6.0 */
   background: -o-linear-gradient(top left, #000, #666); /* For Opera 11.1 to 12.0 */
   background: -moz-linear-gradient(top left, #000, #666); /* For Firefox 3.6 to 15 */
   background: linear-gradient(to top left, #000, #666); /* Standard syntax */
 	cursor: pointer;
 }
+.play_text{cursor: pointer;}
+.text{position: relative;top: 15px;}
 
-.text{
-	position: relative;
-	top: 15px;
-}
-
+/*------------------------Title---------------------------*/
 .title{
 	font-size: 65px; 
 	width: 960px;
@@ -198,7 +206,7 @@ body{background-color: whitesmoke;}
 	width: 150px;
 	height: auto;
 	font-size: 20px;
-	color:#222;
+	color:black;
 }
 .modes{
 	color:whitesmoke;
@@ -207,8 +215,8 @@ body{background-color: whitesmoke;}
 	font-size: 30px;
 	width: 150px;
 	height: 60px;
-	border-radius: 5%;
-	border: whitesmoke solid 1px;
+	border-radius: 5px;
+	border: #222 solid 1px;
 	background: -webkit-linear-gradient(bottom right, #000, #555); /* For Safari 5.1 to 6.0 */
   background: -o-linear-gradient(top left, #000, #555); /* For Opera 11.1 to 12.0 */
   background: -moz-linear-gradient(top left, #000, #555); /* For Firefox 3.6 to 15 */
@@ -223,7 +231,7 @@ body{background-color: whitesmoke;}
   background: linear-gradient(to top left, red, orange); /* Standard syntax */
 }
 .highlighted{
-	color:#333;
+	color:#222;
 	font-size: 40px;
 	padding-top: 10px;
 	padding-bottom: 5px;
@@ -235,17 +243,17 @@ body{background-color: whitesmoke;}
 }
 
 .score{
-	width: 400px;
+	width: 350px;
 	height: auto;
 	position: relative;
-	right: -650px;
-	top: -625px;
+	right: -775px;
+	top: -970px;
 	font-size: 30px;
 }
 
 .footer{
 	position: relative;
-	top: -830px;
+	top: -860px;
 	left: -48px;
 	font-size: 12px;
 	font-family: Garamond;
@@ -254,7 +262,7 @@ body{background-color: whitesmoke;}
 
 .reset{
 	position: relative;
-	top: -675px;
+	top: -700px;
 	left: 140px;
 	color:whitesmoke;
 	text-align: center;
@@ -264,7 +272,7 @@ body{background-color: whitesmoke;}
 	width: 100px;
 	height: 30px;
 	border-radius: 50%;
-	border: whitesmoke solid 1px;
+	border: #333 solid 1px;
 	background: -webkit-linear-gradient(bottom right, #222, #999); /* For Safari 5.1 to 6.0 */
   background: -o-linear-gradient(top left, #222, #999); /* For Opera 11.1 to 12.0 */
   background: -moz-linear-gradient(top left, #222, #999); /* For Firefox 3.6 to 15 */
@@ -280,6 +288,48 @@ body{background-color: whitesmoke;}
   background: -o-linear-gradient(top left, darkred, red); /* For Opera 11.1 to 12.0 */
   background: -moz-linear-gradient(top left, darkred, red); /* For Firefox 3.6 to 15 */
   background: linear-gradient(to top left, darkred, red); /* Standard syntax */
+}
+
+.high_score_panel{
+	position: relative;
+	top: -1150px;
+	left: 800px;
+	width: 200px;
+	height: 25px;
+	font-size: 20px;
+	border-radius: 5px;
+	text-align: center;
+	background-color: pink;
+}
+
+.high_score_panel:hover{
+	cursor: pointer;
+}
+
+.score_board{
+	height: 30px;
+	background-color: gold;
+}
+
+.left{float: left; padding-left: 5px;}
+.right{float: right; padding-right: 5px;}
+
+.light{
+	position: relative;
+	top: -875px;
+	left: -40px;
+	font-size: 20px;
+	color: black;
+}
+
+.light_toggle{
+	position: relative;
+	top: 5px;
+	left: 20px;
+}
+
+.light_toggle:hover{
+	cursor: pointer;
 }
 
 
