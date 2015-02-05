@@ -1,5 +1,14 @@
 angular.module("tap", [])
-.controller("controller", function($timeout, $interval){
+.value("THEME",{
+	LIGHT_ON:{
+		bodyColor: 'bright'
+	},
+	LIGHT_OFF:{
+		bodyColor: 'dark'
+	}
+})
+
+.controller("controller", function($timeout, $interval, THEME){
 	var self = this;
 	var timer = 500;
 	var speed = 1000;
@@ -14,6 +23,7 @@ angular.module("tap", [])
 	var lose_text2 = ["Oops!",             "Wrong One",   "Sorry!",    "Nope",           "Yikes!"                ];
 	var lose_text3 = ["Maybe Next Time?",  "Oopsies!",    "Oh No...",  "Bummer!",        "Ay Yaah!",    "Close!" ];	
 	var lose_text4 = ["You Were Amazing!", "You Had It!", "So Close!", "Ouch!",          "Unlucky!"];
+	self.THEME = THEME;
 	self.score = 0;
 	self.level = 0;
 	self.light = false;
@@ -200,10 +210,10 @@ angular.module("tap", [])
 	self.lightClicked = function(){
 		if(self.light==true){
 			self.light=false;
-			document.body.style.background = "#333"; 
+			self.currentSelection = self.THEME.LIGHT_OFF;
 		}else{
 			self.light=true;
-			document.body.style.background = "whitesmoke";
+			self.currentSelection = self.THEME.LIGHT_ON;
 		}
 	}
 });

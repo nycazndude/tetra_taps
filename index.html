@@ -8,8 +8,10 @@
 		<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 		<link rel="icon" href="images/favicon.ico">
 	</head>
-	<body ng-app="tap">
-		<div class="wrapper" ng-controller="controller as ctrl">
+	<body ng-app="tap" 
+				ng-controller="controller as ctrl" 
+				ng-class="ctrl.currentSelection.bodyColor">
+		<div class="wrapper">
 			<div class="title">
 				<div class="green_text">T</div><div class="yellow_text">e</div><div class="red_text">t</div><div class="green_text">r</div><div class="blue_text">a&nbsp</div> 
 				<div class="yellow_text">T</div><div class="blue_text">a</div><div class="pink_text">p</div><div class="red_text">s</div>
@@ -74,10 +76,14 @@
 					Lights
 					<i class="fa fa-toggle-on fa-2x light_toggle" 
 						 ng-click="ctrl.lightClicked()"
-						 ng-hide="!ctrl.light"></i>
+						 ng-hide="!ctrl.light"
+						 ng-value="ctrl.THEME.LIGHT_ON"
+						 ng-model="currentSelection"></i>
 					<i class="fa fa-toggle-off fa-2x light_toggle" 
 						 ng-click="ctrl.lightClicked()"
-						 ng-hide="ctrl.light"></i>
+						 ng-hide="ctrl.light"
+						 ng-value="ctrl.THEME.LIGHT_OFF"
+						 ng-model="currentSelection"></i>
 			</div>
 			<div class="footer">&copy; 2015 Jason Yim</div>
 			<div class="modes reset"
