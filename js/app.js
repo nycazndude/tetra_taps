@@ -23,6 +23,10 @@ angular.module("tap", [])
 	var lose_text2 = ["Oops!",             "Wrong One",   "Sorry!",    "Nope",           "Yikes!"                ];
 	var lose_text3 = ["Maybe Next Time?",  "Oopsies!",    "Oh No...",  "Bummer!",        "Ay Yaah!",    "Close!" ];	
 	var lose_text4 = ["You Were Amazing!", "You Had It!", "So Close!", "Ouch!",          "Unlucky!"];
+	var LEADERBOARD_SIZE = 10;
+	var score_data = new Firebase('https://tetrataps.firebaseio.com/leaderboard');
+	var score_data_view = score_data.limitToLast(LEADERBOARD_SIZE);
+	var htmlForPath = {};
 	self.THEME = THEME;
 	self.score = 0;
 	self.level = 0;
@@ -40,6 +44,15 @@ angular.module("tap", [])
 	self.message = ""; 
 	self.classic_mode = true;
 	self.tetra_mode = false;
+	self.open_modal = false;
+	self.player_name = "nameless";
+
+
+	// if(self.score_board.length == 0){
+	// 	for(i = 0;i < LEADERBOARD_SIZE;i++){
+	// 		self.score_board.push({name: 'default', score: 0});
+	// 	}
+	// }
 
 	self.reset = function(){ 
 		timer = 500;
@@ -57,6 +70,8 @@ angular.module("tap", [])
 		self.player_turn = false;
 		self.play_text = "Play";
 		self.message = "";  
+		self.openModal = false;
+		score_data_view.on('child_added', function(){self.saveHighScore();});
 	}
 
 	self.selectClassic = function(){self.classic_mode = true;self.tetra_mode = false;}
@@ -81,7 +96,15 @@ angular.module("tap", [])
 		}, timer);
 		if(self.player_turn == true){self.detectClicks(color);}//detects player clicks
 	}
-
+	self.lightClicked = function(){
+		if(self.light==true){
+			self.light=false;
+			self.currentSelection = self.THEME.LIGHT_OFF;
+		}else{
+			self.light=true;
+			self.currentSelection = self.THEME.LIGHT_ON;
+		}
+	}
 	self.clickedPlay = function(){ 
 		self.play = false;
 		$timeout(function(){self.tetrasTurn();}, timer/2);	
@@ -186,36 +209,56 @@ angular.module("tap", [])
 			case (self.level >=20):self.score+=9001;break;
 			default:self.score+=7;
 		} 
-	}
-	self.scoreView = function(){
-		if(self.score_clicked==true){
-			self.score_clicked=false;
-		}else{
-			self.score_clicked=true;
-		}
-	}
+	} 
 	self.gameOver = function(){
 		self.loseMessage();
-		// self.newHighScore();
 		$timeout(function(){self.colorClicked(self.tetra_choices[count]);}, timer*1.5);
 		$timeout(function(){self.colorClicked(self.tetra_choices[count]);}, timer*3);
+		if(self.score >= self.score_board[self.score_board.length-1].score){
+			$timeout(function(){self.message = "High Score!";}, timer*4.5);
+			$timeout(function(){newHighScore();}, timer*7.5);			
+		}else{
 		$timeout(function(){self.message = "Try Again";}, timer*4.5);
 		$timeout(function(){self.reset();}, timer*7.5);
-	}
-	// self.newHighScore = function(){
-		// if(self.score_board.length == 0){
-			// self.score_board.push({name: 'Creator', score: self.score});
-		// }
-	// }
-	self.lightClicked = function(){
-		if(self.light==true){
-			self.light=false;
-			self.currentSelection = self.THEME.LIGHT_OFF;
-		}else{
-			self.light=true;
-			self.currentSelection = self.THEME.LIGHT_ON;
 		}
 	}
+	newHighScore = function(){
+		self.score_board.splice(9);  
+		self.open_modal = true;
+	}
+	function handleScoreAdded(scoreSnapshot, prevScoreName) {
+		var newScoreRow = {name: scoreSnapshot.val().name, score: scoreSnapshot.val().score};
+    self.score_board.push(newScoreRow);
+    htmlForPath[scoreSnapshot.key()] = newScoreRow;
+    self.score_board.sort(function(a,b) {return b.score - a.score});  
+  }
+	function handleScoreRemoved(scoreSnapshot){
+		var removedScoreRow = htmlForPath[scoreSnapshot.key()];
+    removedScoreRow.remove();
+    delete htmlForPath[scoreSnapshot.key()];
+    console.log("deleted");
+	}
+
+	score_data_view.on('child_added', function (newScoreSnapshot, prevScoreName) {
+    handleScoreAdded(newScoreSnapshot, prevScoreName);
+  });
+  score_data_view.on('child_removed', function (oldScoreSnapshot) {
+    handleScoreRemoved(oldScoreSnapshot);
+  });
+
+  var changedCallback = function (scoreSnapshot, prevScoreName) {
+    handleScoreRemoved(scoreSnapshot);
+    handleScoreAdded(scoreSnapshot, prevScoreName);
+  };
+
+  score_data_view.on('child_moved', changedCallback);
+  score_data_view.on('child_changed', changedCallback);
+	
+	self.addHighScore = function(){
+		var new_score = score_data.child(self.player_name);
+		new_score.setWithPriority({name: self.player_name, score: self.score}, self.score);
+		self.reset();
+	} 
 });
 
 
