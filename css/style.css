@@ -212,7 +212,7 @@ body{
 	width: 150px;
 	height: auto;
 	font-size: 20px;
-	color:black;
+	color:grey;
 }
 .modes{
 	color:whitesmoke;
@@ -255,6 +255,7 @@ body{
 	right: -775px;
 	top: -970px;
 	font-size: 30px;
+	color: grey;
 }
 
 .footer{
@@ -343,7 +344,7 @@ body{
 	top: -875px;
 	left: -40px;
 	font-size: 20px;
-	color: black;
+	color: grey;
 }
 
 .light_toggle{

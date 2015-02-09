@@ -236,7 +236,6 @@ angular.module("tap", [])
 		var removedScoreRow = htmlForPath[scoreSnapshot.key()];
     removedScoreRow.remove();
     delete htmlForPath[scoreSnapshot.key()];
-    console.log("deleted");
 	}
 
 	score_data_view.on('child_added', function (newScoreSnapshot, prevScoreName) {
